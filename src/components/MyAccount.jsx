@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 function MyAccount() {
 
   let user = {};
+  let profilePic;
   const [users, setUsers] = useState([]);
   const { username } = useParams();
 
@@ -23,9 +24,17 @@ function MyAccount() {
     }
   };
 
+  if (user.profilePic === '' | user.profilePic === null ){
+    profilePic = <p>No profile pic selected! </p>
+  } else { profilePic =<div> <img src={user.profilePic} alt="avatar"/> </div>}
+
 
   return (
     <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
+      {profilePic}
+      <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
+        Edit Profile Picture
+      </Button >
       <h1>{user.username}'s<br></br>Profile</h1>
       <p>Name: {user.firstName} {user.lastName}</p>
       <p>Current Score: {user.score}</p>

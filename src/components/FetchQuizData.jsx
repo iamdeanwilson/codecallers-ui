@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import {useParams } from 'react-router-dom';
 
 function FetchQuizData() {
+
+    const { topic, difficulty } = useParams();
 
     let [question, setQuestion] = useState(null);
     let [answerA, setAnswerA] = useState(null);
@@ -11,7 +14,7 @@ function FetchQuizData() {
     let [answerF, setAnswerF] = useState(null);
     let [correctAnswer, setCorrectAnswer] = useState(null);
     useEffect(() => {
-      fetch("https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&category=code&difficulty=Easy&limit=1&tags=JavaScript")
+      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&category=code&difficulty=${difficulty}&limit=1&tags=${topic}`)
         .then((response) => response.json())
         .then((data) => {
           setQuestion(data[0].question);
@@ -60,6 +63,8 @@ function FetchQuizData() {
 
     return (
       <div>
+        <p>Topic: {topic}</p>
+        <p>Difficulty: {difficulty}</p>
         <h2>Question:</h2>
         {<p>{question}</p>}
         <h2>Options:</h2>
