@@ -34,8 +34,8 @@ export default function CreateAccount() {
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(user)
     }).then(()=>{
-        alert("New Account Created!")
-    }).then(event =>  window.location.href='/users') // Redirects to a list of users
+        alert(`New Account Created for ${username}!`)
+    }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects to a list of users
     }
   
 

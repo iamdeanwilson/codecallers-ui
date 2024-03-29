@@ -1,34 +1,46 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../App.css';
 
+export default function Login(){
 
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      //const response = await axios.post('/user/login', { username, password });
+      fetch("http://localhost:8080/user/login", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(user)
+    }).then(event =>  window.location.href='/')
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-
-
-
-return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <h1>Create Account</h1>
-      <TextField id="outlined-basic" label="Name" variant="outlined" 
-        value={name}
-        onChange={(event)=>setName(event.target.value)}
+  return (
+    <div>
+    <form onSubmit={handleClick}>
+      <input
+        className="inputBox"
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
-      <TextField id="outlined-basic" label="Email" variant="outlined" 
-      value={email}
-      onChange={(event)=>setEmail(event.target.value)}
+      <input
+        className="inputBox"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <TextField type= "password" id="outlined-password-input" label="Password" variant="outlined" 
-      value={password}  
-      onChange={(event)=>setPassword(event.target.value)}
-      />
-      <Button variant="contained" onClick={handleClick}>
-        Submit
-      </Button>
-    </Box>
+      <button className='button' type="submit">Login</button>
+    </form>
+    </div>
   );
+  };
