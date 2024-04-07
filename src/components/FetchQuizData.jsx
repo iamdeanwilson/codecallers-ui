@@ -1,83 +1,52 @@
 import React, { useState, useEffect } from "react";
 import {useParams } from 'react-router-dom';
+import {Radio, RadioGroup, FormControlLabel,FormControl, FormLabel, Button} from '@mui/material';
+import QuizData from "./QuizData";
 
 function FetchQuizData() {
 
     const { topic, difficulty } = useParams();
 
-    let [question, setQuestion] = useState(null);
-    let [answerA, setAnswerA] = useState(null);
-    let [answerB, setAnswerB] = useState(null);
-    let [answerC, setAnswerC] = useState(null);
-    let [answerD, setAnswerD] = useState(null);
-    let [answerE, setAnswerE] = useState(null);
-    let [answerF, setAnswerF] = useState(null);
-    let [correctAnswer, setCorrectAnswer] = useState(null);
+    let [questions, setQuestions] = useState('');
+
     useEffect(() => {
-      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&category=code&difficulty=${difficulty}&limit=1&tags=${topic}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setQuestion(data[0].question);
-          if (data[0].answers["answer_a"] !== null){
-            setAnswerA("A: " + data[0].answers["answer_a"]);
-          }
-          if (data[0].answers["answer_b"] !== null){
-            setAnswerB("B: " + data[0].answers["answer_b"]);
-          }
-          if (data[0].answers["answer_c"] !== null){
-            setAnswerC("C: " + data[0].answers["answer_c"]);
-          }
-          if (data[0].answers["answer_d"] !== null){
-            setAnswerD("D: " + data[0].answers["answer_d"]);
-          }
-          if (data[0].answers["answer_e"] !== null){
-            setAnswerE("E: " + data[0].answers["answer_e"]);
-          }
-          if (data[0].answers["answer_f"] !== null){
-            setAnswerF("F: " + data[0].answers["answer_f"]);
-          };
-          for (let answer in data[0].correct_answers){
-            if (data[0].correct_answers[answer] === "true"){
-              setCorrectAnswer(answer);
-            }
-          }
-          console.log(data);
-        })
-        .catch((error) => console.log(error));
+      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&difficulty=${difficulty}&limit=10&tags=${topic}`)
+      .then(response => {
+        return response.json();
+      })
+      .then((data) => {
+        setQuestions(data);
+      }) 
     }, []);
+  
+    
 
-    if (correctAnswer == "answer_a_correct"){
-      correctAnswer = answerA;
-    } else if (correctAnswer == "answer_b_correct"){
-      correctAnswer = answerB;
-    } else if (correctAnswer == "answer_c_correct"){
-      correctAnswer = answerC;
-    } else if (correctAnswer == "answer_d_correct"){
-      correctAnswer = answerD;
-    } else if (correctAnswer == "answer_e_correct"){
-      correctAnswer = answerE;
-    } else if (correctAnswer == "answer_f_correct"){
-      correctAnswer = answerF;
-    }
-
-
+    
     return (
       <div>
-        <p>Topic: {topic}</p>
-        <p>Difficulty: {difficulty}</p>
-        <h2>Question:</h2>
-        {<p>{question}</p>}
-        <h2>Options:</h2>
-        {<p>{answerA}</p>}
-        {<p>{answerB}</p>}
-        {<p>{answerC}</p>}
-        {<p>{answerD}</p>}
-        {<p>{answerE}</p>}
-        {<p>{answerF}</p>}
-        <h2>Correct Answer:</h2>
-        {<p>{correctAnswer}</p>}
+        <FormControl>
+          {questions && <div>{questions.map((question, index) => (
+            <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '10px', borderRadius: '25px', margin : '5px'}}>
+              <FormLabel>Question {index +1}: {question.question}</FormLabel >
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+              >
+                {question.answers.answer_a && <FormControlLabel value={question.answers.answer_a} control={<Radio />} label={question.answers.answer_a} />}
+                {question.answers.answer_b && <FormControlLabel value={question.answers.answer_b} control={<Radio />} label={question.answers.answer_b} />}
+                {question.answers.answer_c && <FormControlLabel value={question.answers.answer_c} control={<Radio />} label={question.answers.answer_c} />}
+                {question.answers.answer_d && <FormControlLabel value={question.answers.answer_d} control={<Radio />} label={question.answers.answer_d} />}
+                {question.answers.answer_e && <FormControlLabel value={question.answers.answer_e} control={<Radio />} label={question.answers.answer_e} />}
+                {question.answers.answer_f && <FormControlLabel value={question.answers.answer_f} control={<Radio />} label={question.answers.answer_f} />}
+              </RadioGroup>
+            </div>
+          ))}</div>}
+          <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained">
+            Submit Quiz!
+          </Button>
+        </FormControl>
       </div>
     );
-  }
+}
 
 export default FetchQuizData;
