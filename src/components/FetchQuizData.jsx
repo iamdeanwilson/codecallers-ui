@@ -25,7 +25,7 @@ function FetchQuizData() {
     let correctAnswers = [];
     let userAnswers = [];
     let backgroundColorArray=[]
-    let timeMultiplier; 
+    let timeMultiplier=1; 
     let score = 0;
     let numberOfCorrectAnswers = 0;
 
@@ -56,29 +56,17 @@ function FetchQuizData() {
       let quizTime = Math.floor((endTime - startTime)/1000);
 
 
-      if (quizTime <= 300 && quizTime > 270){
-        timeMultiplier = 2;
-      } else if (quizTime <= 270 && quizTime > 240){
-        timeMultiplier = 3;
-      } else if (quizTime <= 240 && quizTime > 210){
-        timeMultiplier = 4;
-      } else if (quizTime <= 210 && quizTime > 180){
-        timeMultiplier = 5;
-      } else if (quizTime <= 180 && quizTime > 150){
-        timeMultiplier = 6;
-      } else if (quizTime <= 150 && quizTime > 120){
-        timeMultiplier = 7;
-      } else if (quizTime <= 120 && quizTime > 90){
-        timeMultiplier = 8;
-      } else if (quizTime <= 90 && quizTime > 60){
-        timeMultiplier = 9;
-      } else if (quizTime <= 60 && quizTime > 60){
-        timeMultiplier = 10;
-      } else if (quizTime <= 60 && quizTime > 30){
-        timeMultiplier = 11;
-      } else if (quizTime <= 30){
-        timeMultiplier = 12;
-      }
+      if (quizTime <= 300 && quizTime > 270){timeMultiplier = 2;} 
+      else if (quizTime <= 270 && quizTime > 240){timeMultiplier = 3;} 
+      else if (quizTime <= 240 && quizTime > 210){timeMultiplier = 4;} 
+      else if (quizTime <= 210 && quizTime > 180){timeMultiplier = 5;} 
+      else if (quizTime <= 180 && quizTime > 150){timeMultiplier = 6;} 
+      else if (quizTime <= 150 && quizTime > 120){timeMultiplier = 7;} 
+      else if (quizTime <= 120 && quizTime > 90){timeMultiplier = 8;} 
+      else if (quizTime <= 90 && quizTime > 60){timeMultiplier = 9;} 
+      else if (quizTime <= 60 && quizTime > 60){timeMultiplier = 10;} 
+      else if (quizTime <= 60 && quizTime > 30){timeMultiplier = 11;} 
+      else if (quizTime <= 30){timeMultiplier = 12;}
       score = (score*timeMultiplier);
       alert("Time: " + quizTime + " Seconds" + "\nNumber of Correct Answers: " + numberOfCorrectAnswers + "\nTime Multiplier: " + timeMultiplier + "\nScore: " + score);
       setBackgroundColors(backgroundColorArray);
@@ -95,9 +83,9 @@ function FetchQuizData() {
         {userScore && <div style={{padding: '10px', borderRadius: '25px', margin : '5px', background:"#1565c0", color: "white"}}>
           <h1>Your Score: {userScore} Points</h1>
           <h3>Number of Correct Answers: {userCorrectAnswers}</h3>
+          <h3>Point Value per Question: {questionPointValue} ({difficulty} Difficulty)</h3>
           <h3>Time Taken: {userTimeTaken} Seconds</h3>
           <h3>Time Multiplier: {userTimeMultiplier}</h3>
-
           </div>}
         <FormControl>
           {questions && <div>{questions.map((question, index) => (

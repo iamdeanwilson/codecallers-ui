@@ -38,6 +38,7 @@ function TakeAQuiz() {
       alert("All fields are required!");
       event.preventDefault(); 
     } else
+    confirm("Upon clicking 'OK', you will be redirected to your quiz. Your score will be calculated by the number of questions you correctly answer, with multipliers determined by the difficulty you select and how quickly you complete the quiz.");
     window.location.href=`/quiz/${topic}/${difficulty}`;
   }
 
