@@ -22,6 +22,7 @@ import EditAccount from './components/EditAccount';
 import DeleteAccount from './components/DeleteAccount';
 import {Fragment} from 'react';
 
+
 let username;
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
       <div>
       
         
-        <Router>
+        
         <Fragment>
         <NavBar/>
           <AuthProvider>
@@ -109,7 +110,7 @@ function App() {
             </Routes>
           </AuthProvider>
           </Fragment>
-        </Router>
+        
         
       </div>
       

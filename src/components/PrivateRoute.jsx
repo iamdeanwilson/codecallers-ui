@@ -6,7 +6,7 @@ const PrivateRoute = () => {
   const user = useAuth();
   if (!user.token) {
     window.alert('Please Login to access this page');
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
   return <Outlet />;
 };
