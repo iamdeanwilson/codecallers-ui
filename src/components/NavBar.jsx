@@ -102,8 +102,8 @@ export default function NavBar() {
           <Button onClick={event => window.location.href = '/'} color="inherit">Code Callers Quizzes!</Button>
           <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Change Theme
-          </Typography>
-          <div>
+          </Typography >
+          <div style={{margin : '5px'}}>
             <LightDark />
           </div>
           <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>

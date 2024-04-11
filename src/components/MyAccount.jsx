@@ -31,7 +31,9 @@ function MyAccount() {
 
   return (
     <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-      {profilePic}
+      <div>
+        {profilePic}
+      </div>
       <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
         Edit Profile Picture
       </Button >
