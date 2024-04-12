@@ -25,9 +25,14 @@ function EditAccount() {
   const[lastName, setLastName]=React.useState('')
   const[birthday, setBirthday]=React.useState('')
   const[bio, setBio]=React.useState('')
+  const token = localStorage.getItem('site')
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
+    fetch('http://localhost:8080/user/index', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },})
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
@@ -44,7 +49,10 @@ function EditAccount() {
     const user={firstName, lastName, birthday, bio}
     fetch(`http://localhost:8080/user/${userID}/update`, {
       method:"PUT",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body:JSON.stringify(user)
     }).then(()=>{
         alert("Account Updated!")

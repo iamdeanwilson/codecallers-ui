@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { useAuth } from './AuthProvider';
 
 
 
@@ -10,9 +11,16 @@ function MyAccount() {
   let profilePic;
   const [users, setUsers] = useState([]);
   const { username } = useParams();
+  const auth = useAuth();
+  const token = localStorage.getItem('site')
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
+    
+    fetch('http://localhost:8080/user/index', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },})
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
