@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
-import {Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, MenuItem,Menu} from '@mui/material';
-import {ListItem, ListItemButton, ListItemIcon, ListItemText, Button, Switch, FormControlLabel,FormGroup} from '@mui/material';
+import { Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, MenuItem, Menu } from '@mui/material';
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Button, Switch, FormControlLabel, FormGroup } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -10,6 +10,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useAuth } from './AuthProvider';
+import LightDark from './LightDark';
 
 const drawerWidth = 240;
 
@@ -107,7 +108,13 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button onClick={event =>  window.location.href='/'} color="inherit">Code Callers Quizzes!</Button> 
+          <Button onClick={event => window.location.href = '/'} color="inherit">Code Callers Quizzes!</Button>
+          <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Change Theme
+          </Typography >
+          <div style={{margin : '5px'}}>
+            <LightDark />
+          </div>
           <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Login ➜
           </Typography>
@@ -142,6 +149,7 @@ export default function NavBar() {
                 <MenuItem onClick={event => window.location.href='/logout'}>Logout</MenuItem>
               </Menu>
             </div>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -166,7 +174,7 @@ export default function NavBar() {
         <List>
           {['Quizzes', 'Leaderboard', 'Contact', 'Invite', 'About'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={event =>  window.location.href=`/${text}`}>
+              <ListItemButton onClick={event => window.location.href = `/${text}`}>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>

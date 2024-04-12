@@ -18,6 +18,7 @@ function EditAccount() {
   let date;
 
   let userID;
+  let profilePic;
   const { username } = useParams();
   const [users, setUsers] = useState([]);
   const[firstName, setFirstName]=React.useState('')

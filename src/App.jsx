@@ -1,15 +1,14 @@
 import React from 'react';
 import { useState, useEffect  } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
 import './App.css';
 import NavBar from './components/NavBar';
-
 import FetchQuizData from './components/FetchQuizData';
 import Login  from './components/Login';
 import Logout from './components/Logout';
 import AuthProvider from './components/AuthProvider';
 import PrivateRoute from "./components/PrivateRoute";
+import { Route, Routes } from 'react-router-dom'
 import Users from './components/Users';
 import Home from './components/Home';
 import CreateAccount from './components/CreateAccount';
@@ -22,9 +21,12 @@ import MyAccount from './components/MyAccount';
 import EditAccount from './components/EditAccount';
 import DeleteAccount from './components/DeleteAccount';
 import {Fragment} from 'react';
-
+import LightDark from './components/LightDark';
+import './Switch.css'
+import ProfilePicSelector from './components/ProfilePicSelector';
 
 let username;
+
 
 function App() {
 
@@ -40,6 +42,7 @@ function App() {
             <Routes>
                 
               <Route path="/"  element={<Home/>}/>
+              <Route path="*" element={<Home />} />
 
               <Route element={<PrivateRoute/>}>
                 <Route path='/quizzes' element={<TakeAQuiz/>} />
@@ -82,17 +85,19 @@ function App() {
               <Route element={<PrivateRoute/>}>
                 <Route path='/deleteaccount/:username' element={<DeleteAccount/>} />
               </Route>
-            
+
+              <Route path="/ProfilePicSelector/:username" element={<ProfilePicSelector />} />
+              
+                <Route path="/about" element={<About />} />
+                  
             </Routes>
           </AuthProvider>
           </Fragment>
         
         
       </div>
-      
-   
   )
-  
+
 }
 
 export default App
