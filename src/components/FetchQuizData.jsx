@@ -21,6 +21,9 @@ function FetchQuizData() {
     const [userCorrectAnswers, setUserCorrectAnswers] = useState(null);
     const [userTimeTaken, setUserTimeTaken] = useState(null);
     const [userTimeMultiplier, setUserTimeMultiplier] = useState(null);
+    const token = localStorage.getItem('site');
+    const userID = localStorage.getItem('userID');
+    const username = localStorage.getItem('username');
 
     let correctAnswers = [];
     let userAnswers = [];
@@ -78,6 +81,24 @@ function FetchQuizData() {
       event.preventDefault(); 
     }
 
+    const submitScore=(event)=>{
+      event.preventDefault()
+      console.log(userID);
+      console.log(userScore);
+      let score = userScore;
+      const user={score}
+      fetch(`http://localhost:8080/user/${userID}/update`, {
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(user)
+      }).then(()=>{
+          alert("Score added to profile!")
+      }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
+      }
+
     return (
       <div>
         {userScore && <div style={{padding: '10px', borderRadius: '25px', margin : '5px', background:"#1565c0", color: "white"}}>
@@ -118,7 +139,7 @@ function FetchQuizData() {
           {!userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={handleSubmit}>
             Submit Quiz!
           </Button>}
-          {userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained">
+          {userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={submitScore}>
             Add Score to Your Profile!
           </Button>}
         </FormControl>
