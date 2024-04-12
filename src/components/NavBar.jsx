@@ -9,6 +9,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useAuth } from './AuthProvider';
 import LightDark from './LightDark';
 
 const drawerWidth = 240;
@@ -58,7 +59,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+export const doLogout = () => {
+  const logoutAuth = useAuth();
+  logoutAuth.logOut();
+};
+
 export default function NavBar() {
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -85,6 +92,8 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -110,35 +119,37 @@ export default function NavBar() {
             Login ➜
           </Typography>
           <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={event => window.location.href = '/login'}>Login</MenuItem>
-              <MenuItem onClick={event => window.location.href = '/create'}>Create Account</MenuItem>
-            </Menu>
-          </div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={event =>  window.location.href='/create'}>Create Account</MenuItem>
+                <MenuItem onClick={event =>  window.location.href='/login'}>Login</MenuItem>
+                <MenuItem onClick={event => window.location.href='/logout'}>Logout</MenuItem>
+              </Menu>
+            </div>
+
         </Toolbar>
       </AppBar>
       <Drawer
