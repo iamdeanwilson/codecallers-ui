@@ -8,7 +8,6 @@ import Login  from './components/Login';
 import Logout from './components/Logout';
 import AuthProvider from './components/AuthProvider';
 import PrivateRoute from "./components/PrivateRoute";
-import { Route, Routes } from 'react-router-dom'
 import Users from './components/Users';
 import Home from './components/Home';
 import CreateAccount from './components/CreateAccount';
@@ -49,7 +48,7 @@ function App() {
               </Route>
 
               <Route element={<PrivateRoute/>}>
-                <Route path='/quiz' element={<FetchQuizData/>} />
+                <Route path='/quiz/:topic/:difficulty' element={<FetchQuizData/>} />
               </Route>
 
               <Route element={<PrivateRoute/>}>
