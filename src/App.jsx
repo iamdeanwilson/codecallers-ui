@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 
 import FetchQuizData from './components/FetchQuizData';
 import Login  from './components/Login';
+import Logout from './components/Logout';
 import AuthProvider from './components/AuthProvider';
 import PrivateRoute from "./components/PrivateRoute";
 import Users from './components/Users';
@@ -40,72 +41,47 @@ function App() {
                 
               <Route path="/"  element={<Home/>}/>
 
-              <Route path="/quizzes" 
-                element={
-                <PrivateRoute>
-                  <TakeAQuiz/>
-                </PrivateRoute>
-                }
-              /> 
-              <Route path="/quiz" 
-                element={
-                <PrivateRoute>
-                  <FetchQuizData/>
-                </PrivateRoute>
-                }
-              />
+              <Route element={<PrivateRoute/>}>
+                <Route path='/quizzes' element={<TakeAQuiz/>} />
+              </Route>
 
-              <Route path="/leaderboard" 
-                element={
-                <PrivateRoute>
-                  <Leaderboard/>
-                </PrivateRoute>
-                }
-              />
-                
-              <Route path="/contact" 
-                element={
-                <PrivateRoute>
-                  <Contact/>
-                </PrivateRoute>
-                }
-              />
-                
-              <Route path="/invite" 
-                element={
-                <PrivateRoute>
-                  <Invite/>
-                </PrivateRoute>
-                }
-              />
+              <Route element={<PrivateRoute/>}>
+                <Route path='/quiz' element={<FetchQuizData/>} />
+              </Route>
 
-              <Route path="/myaccount/:username" 
-                element={
-                <PrivateRoute>
-                  <MyAccount/>
-                </PrivateRoute>
-                }
-              />
+              <Route element={<PrivateRoute/>}>
+                <Route path='/leaderboard' element={<Leaderboard/>} />
+              </Route>
+
+              
+              <Route element={<PrivateRoute/>}>
+                <Route path='/contact' element={<Contact/>} />
+              </Route>
+
+              <Route element={<PrivateRoute/>}>
+                <Route path='/invite' element={<Invite/>} />
+              </Route>
+                
+              <Route element={<PrivateRoute/>}>
+                <Route path='/myaccount/:username' element={<MyAccount/>} />
+              </Route>
+
+              
 
               <Route path="/create"  element={<CreateAccount/>}/> 
 
+              <Route path="/logout"  element={<Logout/>}/> 
+
               <Route path="/login"  element={<Login/>}/>
 
-              <Route path="/editaccount/:username" 
-                element={
-                <PrivateRoute>
-                  <EditAccount/>
-                </PrivateRoute>
-                }
-              />
-  
-              <Route path="/deleteaccount/:username" 
-                element={
-                <PrivateRoute>
-                  <DeleteAccount/>
-                </PrivateRoute>
-                }
-              />
+              <Route element={<PrivateRoute/>}>
+                <Route path='/editaccount/:username' element={<EditAccount/>} />
+              </Route>
+
+              
+              <Route element={<PrivateRoute/>}>
+                <Route path='/deleteaccount/:username' element={<DeleteAccount/>} />
+              </Route>
             
             </Routes>
           </AuthProvider>

@@ -58,7 +58,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+export const doLogout = () => {
+  const logoutAuth = useAuth();
+  logoutAuth.logOut();
+};
+
 export default function NavBar() {
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -84,6 +90,8 @@ export default function NavBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -129,9 +137,9 @@ export default function NavBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={event =>  window.location.href='/login'}>Login</MenuItem>
                 <MenuItem onClick={event =>  window.location.href='/create'}>Create Account</MenuItem>
-                <MenuItem onClick={() => auth.logOut()}>logout</MenuItem>
+                <MenuItem onClick={event =>  window.location.href='/login'}>Login</MenuItem>
+                <MenuItem onClick={event => window.location.href='/logout'}>Logout</MenuItem>
               </Menu>
             </div>
         </Toolbar>
