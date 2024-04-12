@@ -19,10 +19,24 @@ import EditAccount from './components/EditAccount';
 import DeleteAccount from './components/DeleteAccount';
 import LightDark from './components/LightDark';
 import './Switch.css'
+import ContactForm from './components/ContactForm'
 
 let username;
 
 function App() {
+
+  useEffect(() => {
+    if (document) {
+      const stylesheet = document.createElement("link");
+      stylesheet.rel = "stylesheet";
+      stylesheet.href = "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css";
+
+      document.head.appendChild(stylesheet);
+    }
+  }, []);
+
+
+
 
   return (
     <>
@@ -33,7 +47,7 @@ function App() {
           <Route path="/quizzes" element={<TakeAQuiz />} />
           <Route path="/quiz" element={<FetchQuizData />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<ContactForm />} />
           <Route path="/invite" element={<Invite />} />
           <Route path="/about" element={<About />} />
           <Route path="/users" element={<Users />} />
