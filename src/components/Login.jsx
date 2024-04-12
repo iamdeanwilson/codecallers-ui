@@ -5,8 +5,6 @@ import axios from 'axios';
 import { Password } from '@mui/icons-material';
 import '../App.css';
   
-const[username, setUsername]=React.useState('')
-const[password, setPassword]=React.useState('')
 
 export default function Login(){
 
@@ -17,29 +15,29 @@ export default function Login(){
   const[usernameHelperText, setUsernameHelperText]=React.useState('')
   const[passwordHelperText, setPasswordHelperText]=React.useState('')
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      //const response = await axios.post('/user/login', { username, password });
-       if (username === ''){
-        setUsernameError(true);
-        setUsernameHelperText("Username is required!");
-       } else if (password  === ''){
-        setPasswordError(true);
-        setPasswordHelperText("Password is required!");
-        event.preventDefault();
-       }
-      event.preventDefault();
-      fetch("http://localhost:8080/user/login", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(user)
-    }).then(event =>  window.location.href='/')
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     //const response = await axios.post('/user/login', { username, password });
+  //      if (username === ''){
+  //       setUsernameError(true);
+  //       setUsernameHelperText("Username is required!");
+  //      } else if (password  === ''){
+  //       setPasswordError(true);
+  //       setPasswordHelperText("Password is required!");
+  //       event.preventDefault();
+  //      }
+  //     event.preventDefault();
+  //     fetch("http://localhost:8080/user/login", {
+  //     method:"POST",
+  //     headers:{"Content-Type":"application/json"},
+  //     body:JSON.stringify(user)
+  //   }).then(event =>  window.location.href='/')
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   useEffect(() => {
     setUsernameError(false)
