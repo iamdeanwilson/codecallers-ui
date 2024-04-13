@@ -15,7 +15,6 @@ function MyAccount() {
   const token = localStorage.getItem('site')
 
   useEffect(() => {
-    
     fetch('http://localhost:8080/user/index', {
         method: 'GET',
         headers: {

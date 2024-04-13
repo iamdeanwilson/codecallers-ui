@@ -55,11 +55,12 @@ export default function Login(){
         autoComplete="off"
         style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}
       >
-        <div>
+        {localStorage.getItem('site') && <h3>You're already logged in, {localStorage.getItem('username')}! </h3>}
+        {!localStorage.getItem('site') && <div>
           <h1>Login</h1>
-        </div>
+        </div>}
         
-        <div>
+        {!localStorage.getItem('site') && <div>
           <TextField id="username" label="Username" variant="outlined" 
             value={username}
             onChange={(event)=>setUsername(event.target.value)}
@@ -67,9 +68,9 @@ export default function Login(){
             helperText= {usernameHelperText}
             required
           />
-        </div>
+        </div>}
         
-        <div>
+        {!localStorage.getItem('site') && <div>
           <TextField type= "password" id="password" label="Password" variant="outlined" autoComplete="off" 
             value={password}  
             onChange={(event)=>setPassword(event.target.value)}
@@ -77,13 +78,13 @@ export default function Login(){
             helperText= {passwordHelperText}
             required
           />
-        </div>
+        </div>}
         
-        <div>
+        {!localStorage.getItem('site') && <div>
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
-        </div>
+        </div>}
       </Box>
     );
 };

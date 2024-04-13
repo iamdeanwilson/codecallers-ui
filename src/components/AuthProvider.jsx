@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("site", res.token);
         localStorage.setItem("username", res.username);
         localStorage.setItem("userID", res.id);
-        navigate("/");
+        navigate(`/myaccount/${localStorage.getItem('username')}`);
         return;
       }
       throw new Error(res.message);
