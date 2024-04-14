@@ -41,20 +41,20 @@ function MyAccount() {
       <div>
         {profilePic}
       </div>
-      <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
+      {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
         Edit Profile Picture
-      </Button >
+      </Button >}
       <h1>{user.username}'s<br></br>Profile</h1>
       <p>Name: {user.firstName} {user.lastName}</p>
       <p>Current Score: {user.score}</p>
       <p>Birthday: {user.birthday}</p>
       <p>Bio: {user.bio}</p>
-      <Button variant="contained" onClick={event =>  window.location.href=`/editaccount/${username}`} style={{margin : '5px'}}>
+      {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/editaccount/${username}`} style={{margin : '5px'}}>
         Edit Profile
-      </Button >
-      <Button variant="contained" onClick={event =>  window.location.href=`/deleteaccount/${username}`} style={{margin : '5px', backgroundColor: "red"}}>
+      </Button >}
+      {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/deleteaccount/${username}`} style={{margin : '5px', backgroundColor: "red"}}>
         Delete Profile
-      </Button>
+      </Button>}
     </div>
   );
 

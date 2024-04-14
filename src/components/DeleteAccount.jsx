@@ -45,23 +45,28 @@ function DeleteAccount() {
   }
 
   return (
-    <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-      <div>
-        <h1>Are you<br></br>REALLY REALLY<br></br>sure you want to delete<br></br>{username}'s<br></br>Account?</h1>
-      </div>
-      <div>
-        <p>This action cannot be undone!</p>
-      </div>
-      <div>
-        <Button variant="contained" onClick={handleDoNotDelete} style={{margin : '5px'}}>
-          No, wait! I'm having second thoughts! Get me outta here!
-        </Button >
-      </div>
-      <div>
-        <Button variant="contained" onClick={handleDelete} style={{margin : '5px', backgroundColor: "red"}}>
-          Yes, I'm sure, delete my account!
-        </Button >
-      </div>
+    <div>
+      {username != localStorage.getItem('username') && <div>
+        <h2>You can only delete your own account!</h2>
+      </div>}
+      {username === localStorage.getItem('username') && <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
+        <div>
+          <h1>Are you<br></br>REALLY REALLY<br></br>sure you want to delete<br></br>{username}'s<br></br>Account?</h1>
+        </div>
+        <div>
+          <p>This action cannot be undone!</p>
+        </div>
+        <div>
+          <Button variant="contained" onClick={handleDoNotDelete} style={{margin : '5px'}}>
+            No, wait! I'm having second thoughts! Get me outta here!
+          </Button >
+        </div>
+        <div>
+          <Button variant="contained" onClick={handleDelete} style={{margin : '5px', backgroundColor: "red"}}>
+            Yes, I'm sure, delete my account!
+          </Button >
+        </div>
+      </div>}
     </div>
   );
 

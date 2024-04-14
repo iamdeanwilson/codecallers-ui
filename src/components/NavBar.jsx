@@ -72,6 +72,7 @@ export default function NavBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const token = localStorage.getItem('site')
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -97,6 +98,7 @@ export default function NavBar() {
   };
 
   useEffect(() => {
+    if(token){
     fetch('http://localhost:8080/user/index', {
         method: 'GET',
         headers: {
@@ -105,13 +107,16 @@ export default function NavBar() {
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
+    }
   }, []);
+  
   
   for ( let i = 0; i < users.length; i++ ){
     if(users[i].username === localStorage.getItem('username')){
       user = users[i];
     }
   };
+  
   
   if (!user.profilePic === '' | user.profilePic === null ){
     profilePic = ""
@@ -133,7 +138,7 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button onClick={event => window.location.href = '/'} color="inherit">Code Callers Quizzes!</Button>
+          <Button onClick={event => window.location.href = '/'} color="inherit">Home</Button>
           <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Change Theme
           </Typography >
