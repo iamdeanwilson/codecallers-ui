@@ -70,7 +70,6 @@ function FetchQuizData() {
       else if (quizTime <= 60 && quizTime > 30){timeMultiplier = 11;} 
       else if (quizTime <= 30){timeMultiplier = 12;}
       score = (score*timeMultiplier);
-      alert("Time: " + quizTime + " Seconds" + "\nNumber of Correct Answers: " + numberOfCorrectAnswers + "\nTime Multiplier: " + timeMultiplier + "\nScore: " + score);
       setBackgroundColors(backgroundColorArray);
       setUserCorrectAnswers(numberOfCorrectAnswers);
       setUserTimeMultiplier(timeMultiplier);

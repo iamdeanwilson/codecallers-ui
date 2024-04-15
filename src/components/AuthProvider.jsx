@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [userID, setUserID] = useState(localStorage.getItem("userID") || "");
   const navigate = useNavigate();
+  
   const loginAction = async (data) => {
     try {
       const response = await fetch("http://localhost:8080/user/login", {

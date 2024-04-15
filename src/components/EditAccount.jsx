@@ -20,7 +20,7 @@ function EditAccount() {
   let userID;
   let profilePic;
   const { username } = useParams();
-  const [users, setUsers] = useState([]);
+  const[users, setUsers] = useState([]);
   const[firstName, setFirstName]=React.useState('')
   const[lastName, setLastName]=React.useState('')
   const[birthday, setBirthday]=React.useState('')
@@ -55,7 +55,6 @@ function EditAccount() {
       },
       body:JSON.stringify(user)
     }).then(()=>{
-        alert("Account Updated!")
     }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
     }
 

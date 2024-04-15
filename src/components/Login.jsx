@@ -35,7 +35,6 @@ export default function Login(){
     e.preventDefault();
     const input={username, password}
     if (input.username !== "" && input.password !== "") {
-      
       auth.loginAction(input);
       return;
       

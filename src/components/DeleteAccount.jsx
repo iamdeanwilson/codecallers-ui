@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useParams } from 'react-router-dom';
-import {Button, TextField} from '@mui/material';
+import {Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Alert} from '@mui/material';
 
 function DeleteAccount() {
 
@@ -9,9 +9,18 @@ function DeleteAccount() {
   let userID;
   const { username } = useParams();
   const [users, setUsers] = useState([]);
+  const[open, setOpen] = React.useState(false);
+  const[dialogHeader, setDialogHeader] = React.useState('');
+  const[dialogBody, setDialogBody] = React.useState('');
+  const token = localStorage.getItem('site')
+
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
+    fetch('http://localhost:8080/user/index', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },})
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
@@ -25,24 +34,43 @@ function DeleteAccount() {
 
   const handleDoNotDelete=(event)=>{
     event.preventDefault()
-    alert("We're happy you stayed!");
-    window.location.href=`/myaccount/${username}`;
-    }
+    setOpen(true);
+    setDialogHeader("Thank you!");
+    setDialogBody("We're happy you stayed!")
+  }
 
 
   const handleDelete=(event)=>{
     event.preventDefault()
+    setOpen(true);
+    setDialogHeader("Final Warning!");
+    setDialogBody("Are you SURE you want to delete your account?!")
+  }
+
+  const handleFinalDelete=(event)=>{
+    event.preventDefault()
     const user = username
-    if (confirm("Are you SURE you want to delete your account?!") == true) {
       fetch(`http://localhost:8080/user/${userID}/delete`, {
         method:"DELETE",
-        headers:{"Content-Type":"application/json"},
+        headers:{
+          "Content-Type":"application/json",
+          'Authorization': `Bearer ${token}`
+        },
         body:JSON.stringify(user)
       }).then(()=>{
-          alert("Account Deleted!")
-      }).then(event =>  window.location.href=`/create`) // Redirects back to user's profile
-    } else alert("We're happy you stayed!")
+        setOpen(true);
+        setDialogHeader("Account Deleted");
+        setDialogBody("Come back any time!")
+      }).then(event => window.location.href='/logout')
   }
+
+
+
+
+  const handleClose = () => {
+    setOpen(false);
+    window.location.href=`/myaccount/${username}`;
+  };
 
   return (
     <div>
@@ -66,6 +94,31 @@ function DeleteAccount() {
             Yes, I'm sure, delete my account!
           </Button >
         </div>
+        <React.Fragment>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {dialogHeader}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {dialogBody}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              {dialogHeader=== "Thank you!" && <Button onClick={handleClose} variant="contained">Close</Button>}
+              {dialogHeader=== "Final Warning!" && <Button style={{margin : '5px', backgroundColor: "red"}} onClick={handleFinalDelete} autoFocus variant="contained">
+                Yes, Delete my Account!
+              </Button>}{dialogHeader=== "Final Warning!" && <Button onClick={handleDoNotDelete} autoFocus variant="contained" style={{margin : '5px'}}>
+                No, Wait, I Changed my Mind!!
+              </Button>}
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
       </div>}
     </div>
   );
