@@ -31,6 +31,7 @@ const Invite = () => {
         setName('');
         setEmail('');
         setMessage('');
+        window.location.href = "/";
       })
       .catch((error) => {
         console.error('Error sending email:', error);
