@@ -4,9 +4,14 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper}
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
+  const token = localStorage.getItem('site')
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
+    fetch('http://localhost:8080/user/index', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },})
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));

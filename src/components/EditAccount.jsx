@@ -20,14 +20,19 @@ function EditAccount() {
   let userID;
   let profilePic;
   const { username } = useParams();
-  const [users, setUsers] = useState([]);
+  const[users, setUsers] = useState([]);
   const[firstName, setFirstName]=React.useState('')
   const[lastName, setLastName]=React.useState('')
   const[birthday, setBirthday]=React.useState('')
   const[bio, setBio]=React.useState('')
+  const token = localStorage.getItem('site')
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
+    fetch('http://localhost:8080/user/index', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },})
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
@@ -44,49 +49,56 @@ function EditAccount() {
     const user={firstName, lastName, birthday, bio}
     fetch(`http://localhost:8080/user/${userID}/update`, {
       method:"PUT",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization": `Bearer ${token}`
+      },
       body:JSON.stringify(user)
     }).then(()=>{
-        alert("Account Updated!")
     }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
     }
 
   return (
-    <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-      <div>
-        <h1>Edit<br></br>{username}'s<br></br>Account</h1>
-      </div>
-      <div>
-        <TextField id="firstName" label="First Name" variant="outlined" style={{margin : '5px'}}
-          value={firstName}
-          onChange={(event)=>setFirstName(event.target.value)}
-        />
-      </div>
-      <div>
-        <TextField id="lastName" label="Last Name" variant="outlined" style={{margin : '5px'}}
-          value={lastName}
-          onChange={(event)=>setLastName(event.target.value)}
-        />
-      </div>
-      <div style={{margin : '5px'}}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} >
-          <DatePicker label="Birthday"  
-          value={date}
-          onChange={date => setBirthday(date.format('MMM DD YYYY').toString())}
+    <div>
+      {username != localStorage.getItem('username') && <div>
+        <h2>You can only edit your own account!</h2>
+      </div>}
+      {username === localStorage.getItem('username') && <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
+        <div>
+          <h1>Edit<br></br>{username}'s<br></br>Account</h1>
+        </div>
+        <div>
+          <TextField id="firstName" label="First Name" variant="outlined" style={{margin : '5px'}}
+            value={firstName}
+            onChange={(event)=>setFirstName(event.target.value)}
           />
-        </LocalizationProvider>
-      </div>
-      <div>
-        <TextField id="bio" label="Bio" variant="outlined" multiline rows={4} style={{margin : '5px'}}
-          value={bio}
-          onChange={(event)=>setBio(event.target.value)}
-        />
-      </div>
-      <div>
-        <Button variant="contained" onClick={handleClick} style={{margin : '5px'}}>
-          Submit
-        </Button >
-      </div>
+        </div>
+        <div>
+          <TextField id="lastName" label="Last Name" variant="outlined" style={{margin : '5px'}}
+            value={lastName}
+            onChange={(event)=>setLastName(event.target.value)}
+          />
+        </div>
+        <div style={{margin : '5px'}}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <DatePicker label="Birthday"  
+            value={date}
+            onChange={date => setBirthday(date.format('MMM DD YYYY').toString())}
+            />
+          </LocalizationProvider>
+        </div>
+        <div>
+          <TextField id="bio" label="Bio" variant="outlined" multiline rows={4} style={{margin : '5px'}}
+            value={bio}
+            onChange={(event)=>setBio(event.target.value)}
+          />
+        </div>
+        <div>
+          <Button variant="contained" onClick={handleClick} style={{margin : '5px'}}>
+            Submit
+          </Button >
+        </div>
+      </div>}
     </div>
   );
 
