@@ -18,16 +18,21 @@ const AuthProvider = ({ children }) => {
       });
       const res = await response.json();
       console.log(res);
-      if (res) {
+      if (res && !(res.message === "Error: Invalid Username!" && !(res.isEmpty())) ) {
         setUser(res.user);
         setToken(res.token);
         localStorage.setItem("site", res.token);
+        
         navigate("/");
         return;
       }
+        window.alert(res.message);
+      
       throw new Error(res.message);
+      
+      
     } catch (err) {
-      console.error(err);
+      window.alert("Error: Invalid Credentials!");
     }
   };
 
