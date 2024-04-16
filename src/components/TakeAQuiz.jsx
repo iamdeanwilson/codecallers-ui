@@ -59,10 +59,10 @@ function TakeAQuiz() {
         <p>
           "Easy" questions are each worth one point.
           <br></br>"Medium" questions are each worth two points.
-          <br></br>"Hard" questions are each worth three point.
+          <br></br>"Hard" questions are each worth three points.
         </p>
         <p>Quizzes are timed. The timer starts as soon as questions finish loading, 
-          <br></br>and the faster you complete your quiz, the larger your "time multiplier" will be!</p>
+          <br></br>and the faster you complete your quiz, the larger your "time multiplier" bonus will be!</p>
       </div>
       <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px', margin: "5px"}}>
         <div>
