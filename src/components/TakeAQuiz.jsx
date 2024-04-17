@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Box, InputLabel, MenuItem, FormControl, Select, List } from '@mui/material';
+import { Button, Box, InputLabel, MenuItem, FormControl, Select, List, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle  } from '@mui/material';
 
 function TakeAQuiz() {
 
   const [topic, setTopic] = React.useState('');
   const [difficulty, setDifficulty] = React.useState('');
+  const [open, setOpen] = React.useState(false);
   const javaScriptDifficultyOptions = ["Easy"];
   const htmlDifficultyOptions = ["Easy", "Medium", "Hard"];
   const mySQLDifficultyOptions = ["Easy", "Medium", "Hard"];
@@ -15,6 +16,14 @@ function TakeAQuiz() {
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value)
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   if (topic === "javaScript") { 
@@ -38,54 +47,92 @@ function TakeAQuiz() {
       alert("All fields are required!");
       event.preventDefault(); 
     } else
-    confirm("Upon clicking 'OK', you will be redirected to your quiz. Your score will be calculated by the number of questions you correctly answer, with multipliers determined by the difficulty you select and how quickly you complete the quiz.");
     window.location.href=`/quiz/${topic}/${difficulty}`;
   }
 
 
   return (
-    <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-      <div>
-        <h2>Select Your Quiz Preferences</h2>
+    <div>
+      <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px', margin: "5px"}}>
+        <h3>Scoring</h3>
+        <p>The difficulty that you choose determines how many points each question is worth.</p>
+        <p>
+          "Easy" questions are each worth one point.
+          <br></br>"Medium" questions are each worth two points.
+          <br></br>"Hard" questions are each worth three points.
+        </p>
+        <p>Quizzes are timed. The timer starts as soon as questions finish loading, 
+          <br></br>and the faster you complete your quiz, the larger your "time multiplier" bonus will be!</p>
       </div>
-      <div>
-        <Box sx={{ minWidth: 120 }} style={{margin : '5px'}}>
-          <FormControl fullWidth>
-            <InputLabel id="topic">Topic</InputLabel>
-            <Select
-              labelId="topic"
-              id="topic"
-              value={topic}
-              label="Topic"
-              onChange={handleTopicChange}
-            >
-              <MenuItem value={"javaScript"}>JavaScript</MenuItem>
-              <MenuItem value={"html"}>HTML</MenuItem>
-              <MenuItem value={"mysql"}>MySQL</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-      </div>
-       <div>
-        <Box sx={{ minWidth: 120 }} style={{margin : '5px'}}>
-          <FormControl fullWidth>
-            <InputLabel id="difficulty">Difficulty</InputLabel>
-            <Select
-              labelId="difficulty"
-              id="difficulty"
-              value={difficulty}
-              label="Difficulty"
-              onChange={handleDifficultyChange}
-            >
-              {optionsDropDown}
-            </Select>
-          </FormControl>
-        </Box>
-      </div>
-      <div>
-        <Button variant="contained" onClick={handleGoClicked} style={{margin : '5px'}}>
-          Go!
-        </Button >
+      <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px', margin: "5px"}}>
+        <div>
+          <h2>Select Your Quiz Preferences</h2>
+        </div>
+        <div>
+          <Box sx={{ minWidth: 120 }} style={{margin : '5px'}}>
+            <FormControl fullWidth>
+              <InputLabel id="topic">Topic</InputLabel>
+              <Select
+                labelId="topic"
+                id="topic"
+                value={topic}
+                label="Topic"
+                onChange={handleTopicChange}
+              >
+                <MenuItem value={"javaScript"}>JavaScript</MenuItem>
+                <MenuItem value={"html"}>HTML</MenuItem>
+                <MenuItem value={"mysql"}>MySQL</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </div>
+        <div>
+          <Box sx={{ minWidth: 120 }} style={{margin : '5px'}}>
+            <FormControl fullWidth>
+              <InputLabel id="difficulty">Difficulty</InputLabel>
+              <Select
+                labelId="difficulty"
+                id="difficulty"
+                value={difficulty}
+                label="Difficulty"
+                onChange={handleDifficultyChange}
+              >
+                {optionsDropDown}
+              </Select>
+            </FormControl>
+          </Box>
+        </div>
+        <div>
+        <React.Fragment>
+        <Button variant="contained" onClick={handleClickOpen} style={{margin : '5px'}}>
+            Go!
+          </Button >
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are you ready to start your quiz?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                You selected "{topic}" as your topic, and "{difficulty}" as your difficulty.
+                <br></br>The timer will begin as soon as questions finish loading.
+                <br></br>Are you ready?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} variant="outlined">Wait! I'm not ready!</Button>
+              <Button onClick={handleGoClicked} autoFocus variant="contained">
+                I'm ready!
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
+          
+        </div>
       </div>
     </div>
   );

@@ -17,12 +17,17 @@ function ProfilePicSelector() {
   const [users, setUsers] = useState([]);
   const { username } = useParams();
   let userProfilePic, userID;
+  const token = localStorage.getItem('site')
 
   useEffect(() => {
-    fetch('http://localhost:8080/user/index')
-      .then(response => response.json())
-      .then(data => setUsers(data))
-      .catch(error => console.error('Error fetching users:', error));
+    fetch('http://localhost:8080/user/index', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },})
+    .then(response => response.json())
+    .then(data => setUsers(data))
+    .catch(error => console.error('Error fetching users:', error));
   }, []);
 
   for ( let i = 0; i < users.length; i++ ){
@@ -90,12 +95,21 @@ function ProfilePicSelector() {
     const user={profilePic}
     fetch(`http://localhost:8080/user/${userID}/update`, {
       method:"PUT",
-      headers:{"Content-Type":"application/json"},
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization": `Bearer ${token}`,
+      },
       body:JSON.stringify(user)
     }).then(()=>{
         alert(`Profile Pic Updated!`)
     }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
     }
+
+    useEffect(() => {
+      console.log(profilePic)
+    }, [profilePic]);
+
+  
 
   const handleFacialExpressionChange = (event) => { setFacialExpression(event.target.value); };
 
@@ -104,6 +118,23 @@ function ProfilePicSelector() {
   const handleEyebrowChange = (event) => { setEyebrows(event.target.value); };
 
   const handleEyesChange = (event) => { setEyes(event.target.value); };
+
+  const generateRandomColor = (event) => { 
+    return (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');;
+  };
+
+  const Randomize = (event) => { 
+    setSkinTone(generateRandomColor);
+    sethairStyle(hairStyles[(Math.floor(Math.random() * 7))]); //0-7
+    setHairColor(generateRandomColor);
+    setEyes(eyesStyles[(Math.floor(Math.random() * 4))]); //0-4
+    setEyesColor(generateRandomColor);
+    setEyeShadow(generateRandomColor);
+    setShirtColor(generateRandomColor);
+    setFacialExpression(facialExpressions[(Math.floor(Math.random() * 7))]); //0-7
+    setEyebrows(eyesBrowStyles[(Math.floor(Math.random() * 3))]); //0-3
+    setBackgroundColor(generateRandomColor);
+  };
 
   if (facialExpression) { 
     facialOptions = facialExpressions.map((el) => <div key={el} ><Button variant="contained" value={el} onClick={handleFacialExpressionChange} style={{margin : '5px'}}>{el}</Button></div>); 
@@ -319,6 +350,11 @@ function ProfilePicSelector() {
             </Accordion>
           </div>
         </div>
+      </div>
+      <div>
+      <Button variant="contained" onClick={Randomize} style={{margin : '5px'}}>
+          RANDOMIZE
+        </Button >
       </div>
       <div>
         <Button variant="contained" onClick={handleClick} style={{margin : '5px'}}>

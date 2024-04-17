@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useParams } from 'react-router-dom';
-import {Radio, RadioGroup, FormControlLabel,FormControl, FormLabel, Button} from '@mui/material';
+import {Radio, RadioGroup, FormControlLabel,FormControl, FormLabel, Button, CircularProgress, Box } from '@mui/material';
 
 function FetchQuizData() {
 
@@ -21,6 +21,9 @@ function FetchQuizData() {
     const [userCorrectAnswers, setUserCorrectAnswers] = useState(null);
     const [userTimeTaken, setUserTimeTaken] = useState(null);
     const [userTimeMultiplier, setUserTimeMultiplier] = useState(null);
+    const token = localStorage.getItem('site');
+    const userID = localStorage.getItem('userID');
+    const username = localStorage.getItem('username');
 
     let correctAnswers = [];
     let userAnswers = [];
@@ -55,7 +58,6 @@ function FetchQuizData() {
       };
       let quizTime = Math.floor((endTime - startTime)/1000);
 
-
       if (quizTime <= 300 && quizTime > 270){timeMultiplier = 2;} 
       else if (quizTime <= 270 && quizTime > 240){timeMultiplier = 3;} 
       else if (quizTime <= 240 && quizTime > 210){timeMultiplier = 4;} 
@@ -68,7 +70,6 @@ function FetchQuizData() {
       else if (quizTime <= 60 && quizTime > 30){timeMultiplier = 11;} 
       else if (quizTime <= 30){timeMultiplier = 12;}
       score = (score*timeMultiplier);
-      alert("Time: " + quizTime + " Seconds" + "\nNumber of Correct Answers: " + numberOfCorrectAnswers + "\nTime Multiplier: " + timeMultiplier + "\nScore: " + score);
       setBackgroundColors(backgroundColorArray);
       setUserCorrectAnswers(numberOfCorrectAnswers);
       setUserTimeMultiplier(timeMultiplier);
@@ -78,8 +79,28 @@ function FetchQuizData() {
       event.preventDefault(); 
     }
 
+    const submitScore=(event)=>{
+      event.preventDefault()
+      let score = userScore;
+      const user={score}
+      fetch(`http://localhost:8080/user/${userID}/update`, {
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(user)
+      }).then(()=>{
+          alert("Score added to profile!")
+      }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
+      }
+
     return (
       <div>
+        {!questions && 
+          <Box sx={{ display: 'flex' }}>
+            <CircularProgress />
+          </Box>}
         {userScore && <div style={{padding: '10px', borderRadius: '25px', margin : '5px', background:"#1565c0", color: "white"}}>
           <h1>Your Score: {userScore} Points</h1>
           <h3>Number of Correct Answers: {userCorrectAnswers}</h3>
@@ -115,10 +136,10 @@ function FetchQuizData() {
 
             </div>
           ))}</div>}
-          {!userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={handleSubmit}>
+          {questions && !userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={handleSubmit}>
             Submit Quiz!
           </Button>}
-          {userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained">
+          {userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={submitScore}>
             Add Score to Your Profile!
           </Button>}
         </FormControl>
