@@ -18,11 +18,11 @@ const AuthProvider = ({ children }) => {
       });
       const res = await response.json();
       console.log(res);
-      if (res && !(res.message === "Error: Invalid Username!" && !(res.isEmpty())) ) {
+      if (res && !(res.message === "Error: Invalid Credentials!" && !(res.isEmpty())) ) {
         setUser(res.user);
         setToken(res.token);
         localStorage.setItem("site", res.token);
-        
+
         navigate("/");
         return;
       }
@@ -42,6 +42,8 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("site");
     navigate("/");
   };
+  
+  
 
   return (
     <AuthContext.Provider value={{ token, user, loginAction, logOut }}>
