@@ -51,7 +51,9 @@ export default function Login(){
     var userObject = jwtDecode(response.credential);
     setUser(userObject);
     console.log(userObject);
-    localStorage.setItem("token", response.credential);
+    localStorage.setItem("username", userObject.email);
+    localStorage.setItem("profilePic", userObject.picture);
+    localStorage.setItem("site", response.credential);
     navigate("/");
   }
 
@@ -63,7 +65,7 @@ export default function Login(){
   useEffect(() => {
     /* google */
     google.accounts.id.initialize({
-      client_id: "848914083070-4ufmt91eelrr7bh348jtfprsdba6fihu.apps.googleusercontent.com",
+      client_id: "201568238152-f4afn0br7uckilae9605b9bik2m1oolj.apps.googleusercontent.com",
       callback: handleCallbackResponse
     });
 
@@ -115,7 +117,7 @@ export default function Login(){
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
-        </div>
+        </div>}
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
         }
