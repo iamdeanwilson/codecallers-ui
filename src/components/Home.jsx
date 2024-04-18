@@ -14,10 +14,10 @@ function Home() {
       position: 'absolute', left:0, right:0, top:0
     }}>
       <div style={{  position: 'absolute', left:'10%', top:'10%' }}>
-        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica"}}>Test your programming knowledge.</h2>
-        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica"}}>Uncover areas for improvement.</h2>
-        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica"}}>See how your programming knowledge stacks up against other programmers.</h2>
-        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica"}}>Start taking quizzes now!</h2>
+        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>Test your programming knowledge.</h2>
+        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>Uncover areas for improvement.</h2>
+        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>See how your programming knowledge stacks up against other programmers.</h2>
+        <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>Start taking quizzes now!</h2>
         <div align="left" >
           {localStorage.getItem('site') && <Button variant="contained" onClick={event =>  window.location.href=`/quizzes`} style={{margin : '5px'}}>
             Take a Quiz!
