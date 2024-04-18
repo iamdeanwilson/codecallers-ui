@@ -1,10 +1,13 @@
 import {Box, TextField, Stack, Button} from '@mui/material';
 import { useAuth } from './AuthProvider';
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 import { Password } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 import '../App.css';
-  
+/* npm install jwt-decode
+  npm install @react-oauth/google@latest
+ */
 export default function Login(){
 
   const [username, setUsername] = React.useState('');
@@ -13,7 +16,10 @@ export default function Login(){
   const[passwordError, setPasswordError]=React.useState(false)
   const[usernameHelperText, setUsernameHelperText]=React.useState('')
   const[passwordHelperText, setPasswordHelperText]=React.useState('')
-
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+  
+  
   useEffect(() => {
 
     setUsernameError(false)
@@ -30,7 +36,7 @@ export default function Login(){
         } else if (password  === ''){
         setPasswordError(true);
         setPasswordHelperText("Password is required!");
-        event.preventDefault();
+        e.preventDefault();
         }
     e.preventDefault();
     const input={username, password}
@@ -40,8 +46,34 @@ export default function Login(){
       
     }
   }
+  function handleCallbackResponse(response) {
+    console.log("Token: " + response.credential);
+    var userObject = jwtDecode(response.credential);
+    setUser(userObject);
+    console.log(userObject);
+    localStorage.setItem("token", response.credential);
+    navigate("/");
+  }
 
+  function handleLogOut(){
+    setUser({});
+    localStorage.removeItem("token");
+  }
 
+  useEffect(() => {
+    /* google */
+    google.accounts.id.initialize({
+      client_id: "848914083070-4ufmt91eelrr7bh348jtfprsdba6fihu.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById("loginDiv"),
+      {theme: "outline", size: "large"}
+    );
+  }, []);
+
+  
 
 
     return (
@@ -83,7 +115,18 @@ export default function Login(){
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
-        </div>}
+        </div>
+        { Object.keys(user).length === 0 &&
+        <div id= "loginDiv">Sign In As Guest With Google</div>
+        }
+        { localStorage.getItem("token") != null &&
+        <div>
+          <Button variant="contained" onClick={handleLogOut}>
+            Google Log Out
+          </Button>
+        </div>
+        }
+         
       </Box>
     );
 };
