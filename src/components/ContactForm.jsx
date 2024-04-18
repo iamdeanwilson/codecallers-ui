@@ -4,38 +4,61 @@ import { Box, TextField, Stack, Button } from '@mui/material';
 const FORM_ENDPOINT = "https://public.herotofu.com/v1/22c03130-f85a-11ee-bf9d-5f9a26e8739d"; // TODO - update to the correct endpoint
 
 const ContactForm = () => {
-    const [submitted, setSubmitted] = useState(false);
-    const handleSubmit = (e) => {
+    const [submitted, setSubmitted] = useState(false)
+    const [firstName, setFirstName] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [message, setMessage] = React.useState('')
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const inputs = e.target.elements;
-        const data = {};
+        // const inputs = e.target.elements;
 
-        for (let i = 0; i < inputs.length; i++) {
-            if (inputs[i].name) {
-                data[inputs[i].name] = inputs[i].value;
-            }
+
+        // for (let i = 0; i < inputs.length; i++) {
+        //     if (inputs[i].name) {
+        //         data[inputs[i].name] = inputs[i].value;
+        //     }
+        // }
+
+
+        if (firstName === '' || email === '' || message === '') {
+            alert("All fields are required!");
+            e.preventDefault();
+        } else if (message.length < 30) {
+            console.log(message.length);
+            alert("Message must be 30 characters long or longer!");
+            e.preventDefault();
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            alert("Invalid email address!");
+            e.preventDefault();
         }
 
-        fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Form response was not ok');
-                }
+        const data = { firstName, email, message };
 
-                setSubmitted(true);
-            })
-            .catch((err) => {
-                // Submit the form manually
-                e.target.submit();
+
+
+        try {
+
+
+            const response = await fetch(FORM_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
             });
+
+            if (!response.ok) {
+                throw new Error('Form response was not ok');
+            }
+
+            setSubmitted(true);
+        } catch (error) {
+            // Submit the form manually
+            e.target.submit();
+        };
     };
 
     if (submitted) {
@@ -74,8 +97,10 @@ const ContactForm = () => {
                     <input
                         type="text"
                         placeholder="Your name"
-                        name="name"
+                        name="firstName"
                         className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
                         required
                     />
                 </div>
@@ -85,6 +110,8 @@ const ContactForm = () => {
                         placeholder="Email"
                         name="email"
                         className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
@@ -93,6 +120,10 @@ const ContactForm = () => {
                         placeholder="Your message"
                         name="message"
                         className="focus:outline-none focus:ring relative w-full px-3 py-3 text-sm text-gray-600 placeholder-gray-400 bg-white border-0 rounded shadow outline-none"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        multiline
+                        rows={4}
                         required
                     />
                 </div>

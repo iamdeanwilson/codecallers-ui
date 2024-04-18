@@ -19,7 +19,8 @@ import EditAccount from './components/EditAccount';
 import DeleteAccount from './components/DeleteAccount';
 import LightDark from './components/LightDark';
 import './Switch.css'
-import ContactForm from './components/ContactForm'
+import ContactForm from './components/ContactForm';
+import ThankYou from './components/ThankYou';
 
 let username;
 
@@ -56,6 +57,8 @@ function App() {
           <Route path="/myaccount/:username" element={<MyAccount />} />
           <Route path="/editaccount/:username" element={<EditAccount />} />
           <Route path="/deleteaccount/:username" element={<DeleteAccount />} />
+          <Route path="/ThankYou" element={<ThankYou />} />
+
         </Routes>
       </div>
     </>
