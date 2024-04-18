@@ -1,14 +1,15 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
-import { Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, MenuItem, Menu } from '@mui/material';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Button, Switch, FormControlLabel, FormGroup } from '@mui/material';
+import { Box, Drawer, CssBaseline, Toolbar, List, Typography, Divider, IconButton, MenuItem, Menu, Stack  } from '@mui/material';
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Button, Switch, FormControlLabel, FormGroup, Avatar  } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useAuth } from './AuthProvider';
 import LightDark from './LightDark';
 
 const drawerWidth = 240;
@@ -58,9 +59,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+export const doLogout = () => {
+  const logoutAuth = useAuth();
+  logoutAuth.logOut();
+};
+
 export default function NavBar() {
+  
+  let user = {};
+  let profilePic;
+  const [users, setUsers] = useState([]);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const token = localStorage.getItem('site')
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -85,6 +97,33 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    if(token){
+    fetch('http://localhost:8080/user/index', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },})
+      .then(response => response.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error('Error fetching users:', error));
+    }
+  }, []);
+  
+  
+  for ( let i = 0; i < users.length; i++ ){
+    if(users[i].username === localStorage.getItem('username')){
+      user = users[i];
+    }
+  };
+  
+  
+  if (!user.profilePic === '' | user.profilePic === null ){
+    profilePic = ""
+  } else { profilePic = user.profilePic}
+
+
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -99,46 +138,53 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button onClick={event => window.location.href = '/'} color="inherit">Code Callers Quizzes!</Button>
+          <Button onClick={event => window.location.href = '/'} color="inherit">Home</Button>
           <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Change Theme
           </Typography >
           <div style={{margin : '5px'}}>
             <LightDark />
           </div>
-          <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {!localStorage.getItem('site') && <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Login ➜
-          </Typography>
+          </Typography>}
+          {localStorage.getItem('site') && <Typography align="right" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Welcome, {localStorage.getItem('username')}!
+          </Typography>}
           <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={event => window.location.href = '/login'}>Login</MenuItem>
-              <MenuItem onClick={event => window.location.href = '/create'}>Create Account</MenuItem>
-            </Menu>
-          </div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                {!localStorage.getItem('site') &&  <Avatar alt="Not Signed In" src="" />}
+                {localStorage.getItem('site') &&  <Avatar alt={localStorage.getItem('username')} src={profilePic} />}
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {!localStorage.getItem('site') && <MenuItem onClick={event =>  window.location.href='/create'}>Create Account</MenuItem>}
+                {!localStorage.getItem('site') && <MenuItem onClick={event =>  window.location.href='/login'}>Login</MenuItem>}
+                {localStorage.getItem('site') && <MenuItem onClick={event => window.location.href=`/myaccount/${localStorage.getItem('username')}`}>My Account</MenuItem>}
+                {localStorage.getItem('site') && <MenuItem onClick={event => window.location.href='/logout'}>Logout</MenuItem>}
+              </Menu>
+            </div>
+
         </Toolbar>
       </AppBar>
       <Drawer
