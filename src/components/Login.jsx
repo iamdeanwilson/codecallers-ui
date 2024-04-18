@@ -53,6 +53,8 @@ export default function Login(){
     console.log(userObject);
     localStorage.setItem("token", response.credential);
     navigate("/");
+
+    const newUser = {}
   }
 
   function handleLogOut(){
@@ -63,7 +65,7 @@ export default function Login(){
   useEffect(() => {
     /* google */
     google.accounts.id.initialize({
-      client_id: "848914083070-4ufmt91eelrr7bh348jtfprsdba6fihu.apps.googleusercontent.com",
+      client_id: "201568238152-f4afn0br7uckilae9605b9bik2m1oolj.apps.googleusercontent.com",
       callback: handleCallbackResponse
     });
 
@@ -111,11 +113,13 @@ export default function Login(){
           />
         </div>}
         
-        {!localStorage.getItem('site') && <div>
+        {!localStorage.getItem('site') && 
+        <div>
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
         </div>
+        }
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
         }
