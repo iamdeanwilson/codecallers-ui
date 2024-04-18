@@ -51,7 +51,9 @@ export default function Login(){
     var userObject = jwtDecode(response.credential);
     setUser(userObject);
     console.log(userObject);
-    localStorage.setItem("token", response.credential);
+    localStorage.setItem("username", userObject.email);
+    localStorage.setItem("profilePic", userObject.picture);
+    localStorage.setItem("site", response.credential);
     navigate("/");
 
     const newUser = {}
@@ -118,8 +120,10 @@ export default function Login(){
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
+
         </div>
         }
+
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
         }
