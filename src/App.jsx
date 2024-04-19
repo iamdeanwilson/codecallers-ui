@@ -71,9 +71,16 @@ function App() {
             </Route>
 
 
+
             <Route element={<PrivateRoute />}>
-              <Route path='/contact' element={<Contact />} />
+              <Route path='/ContactForm' element={<ContactForm />} />
             </Route>
+
+            <Route element={<PrivateRoute />}>
+              <Route path='/ThankYou' element={<ThankYou />} />
+            </Route>
+
+
 
             <Route element={<PrivateRoute />}>
               <Route path='/invite' element={<Invite />} />
