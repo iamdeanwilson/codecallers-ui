@@ -12,16 +12,6 @@ const ContactForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const inputs = e.target.elements;
-
-
-        // for (let i = 0; i < inputs.length; i++) {
-        //     if (inputs[i].name) {
-        //         data[inputs[i].name] = inputs[i].value;
-        //     }
-        // }
-
-
         if (firstName === '' || email === '' || message === '') {
             alert("All fields are required!");
             e.preventDefault();
