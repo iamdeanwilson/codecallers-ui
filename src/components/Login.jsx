@@ -51,7 +51,9 @@ export default function Login(){
     var userObject = jwtDecode(response.credential);
     setUser(userObject);
     console.log(userObject);
-    localStorage.setItem("token", response.credential);
+    localStorage.setItem("username", userObject.email);
+    localStorage.setItem("profilePic", userObject.picture);
+    localStorage.setItem("site", response.credential);
     navigate("/");
 
     const newUser = {}
@@ -65,7 +67,7 @@ export default function Login(){
   useEffect(() => {
     /* google */
     google.accounts.id.initialize({
-      client_id: "201568238152-f4afn0br7uckilae9605b9bik2m1oolj.apps.googleusercontent.com",
+      client_id: "1049693025889-kq9cae684vj2sg0o3tdelod6pof2lgo5.apps.googleusercontent.com",
       callback: handleCallbackResponse
     });
 
