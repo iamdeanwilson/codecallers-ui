@@ -28,8 +28,6 @@ function LightDark() {
         <div className="LightDark">
             <header>
 
-                {/* <Switch onClick={toggleTheme}>ToggleTheme</button> */}
-                {/* <Switch toggleTheme={toggleTheme} theme={theme} /> */}
                 <Switch toggleTheme={toggleTheme} theme={theme} />
 
             </header>
