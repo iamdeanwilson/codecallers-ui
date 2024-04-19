@@ -41,9 +41,6 @@ function App() {
     }
   }, []);
 
-
-
-
   return (
 
     <div>
