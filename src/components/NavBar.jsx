@@ -120,10 +120,11 @@ export default function NavBar() {
   
   if (!user.profilePic === '' | user.profilePic === null ){
     profilePic = ""
-  } else if (localStorage.getItem('profilePic')){
+  } else if (localStorage.getItem('profilePic') !== '' & localStorage.getItem('profilePic') !== null){
     profilePic = localStorage.getItem('profilePic')
-    console.log(profilePic)
-  } else { profilePic = user.profilePic}
+  } else { 
+    profilePic = user.profilePic
+  }
 
 
 

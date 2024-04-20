@@ -57,11 +57,6 @@ export default function Login(){
     navigate("/");
   }
 
-  function handleLogOut(){
-    setUser({});
-    localStorage.removeItem("token");
-  }
-
   useEffect(() => {
     /* google */
     google.accounts.id.initialize({
@@ -120,15 +115,7 @@ export default function Login(){
         </div>}
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
-        }
-        { localStorage.getItem("token") != null &&
-        <div>
-          <Button variant="contained" onClick={handleLogOut}>
-            Google Log Out
-          </Button>
-        </div>
-        }
-         
+        }  
       </Box>
     );
 };
