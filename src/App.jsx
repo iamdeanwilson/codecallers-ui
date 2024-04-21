@@ -70,7 +70,7 @@ function App() {
 
 
             <Route element={<PrivateRoute />}>
-              <Route path='/ContactForm' element={<ContactForm />} />
+              <Route path='/Contact' element={<ContactForm />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

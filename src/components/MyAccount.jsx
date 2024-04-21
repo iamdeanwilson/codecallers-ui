@@ -47,6 +47,7 @@ function MyAccount() {
       <h1>{user.username}'s<br></br>Profile</h1>
       <p>Name: {user.firstName} {user.lastName}</p>
       <p>Current Score: {user.score}</p>
+      <p>Current Quiz Count: {user.quizCount}</p>
       <p>Birthday: {user.birthday}</p>
       <p>Bio: {user.bio}</p>
       {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/editaccount/${username}`} style={{margin : '5px'}}>

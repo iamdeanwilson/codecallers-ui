@@ -17,6 +17,7 @@ function FetchQuizData() {
 
     const [questions, setQuestions] = useState('');
     const [userScore, setUserScore] = useState(null);
+    const [userQuizCount, setQuizCount] = useState(null);
     const [backgroundColors, setBackgroundColors] = useState([]);
     const [userCorrectAnswers, setUserCorrectAnswers] = useState(null);
     const [userTimeTaken, setUserTimeTaken] = useState(null);
@@ -46,7 +47,7 @@ function FetchQuizData() {
         };
       })
     }, []);
-  
+    
     const handleSubmit = () => {
       let endTime = performance.now();
       for(let i= 0 ; i < userAnswers.length ; i++ ){
@@ -75,6 +76,7 @@ function FetchQuizData() {
       setUserTimeMultiplier(timeMultiplier);
       setUserTimeTaken(quizTime);
       setUserScore(score);
+      setQuizCount(1);
       window.scrollTo(0, 0);
       event.preventDefault(); 
     }
@@ -82,7 +84,8 @@ function FetchQuizData() {
     const submitScore=(event)=>{
       event.preventDefault()
       let score = userScore;
-      const user={score}
+      let quizCount = userQuizCount;
+      const user={score, quizCount};
       fetch(`http://localhost:8080/user/${userID}/update`, {
         method:"PUT",
         headers:{
