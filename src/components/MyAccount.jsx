@@ -39,17 +39,18 @@ function MyAccount() {
   return (
     <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
       <div>
+      <h1>{user.username}'s profile</h1><br></br>
         {profilePic}
       </div>
       {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
         Edit Profile Picture
       </Button >}
-      <h1>{user.username}'s<br></br>Profile</h1>
+      <br></br><br></br>
       <p>Name: {user.firstName} {user.lastName}</p>
       <p>Current Score: {user.score}</p>
       <p>Current Quiz Count: {user.quizCount}</p>
       <p>Birthday: {user.birthday}</p>
-      <p>Bio: {user.bio}</p>
+      <p>Bio: {user.bio}</p><br></br>
       {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/editaccount/${username}`} style={{margin : '5px'}}>
         Edit Profile
       </Button >}

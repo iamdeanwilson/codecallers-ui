@@ -19,7 +19,7 @@ function Home() {
         <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>See how your programming knowledge stacks up against other programmers.</h2>
         <h2 align="left" style={{color: "black", width:"50%", fontFamily:"Helvetica", color:"#1976d2"}}>Start taking quizzes now!</h2>
         <div align="left" >
-          {localStorage.getItem('site') && <Button variant="contained" onClick={event =>  window.location.href=`/quizzes`} style={{margin : '5px'}}>
+          {localStorage.getItem('site') && <Button variant="contained" onClick={event =>  window.location.href=`/quiz`} style={{margin : '5px'}}>
             Take a Quiz!
           </Button >}
           {!localStorage.getItem('site') && <Button variant="contained" onClick={event =>  window.location.href=`/login`} style={{margin : '5px'}}>

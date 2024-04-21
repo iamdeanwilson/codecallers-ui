@@ -56,7 +56,7 @@ function App() {
             <Route path="*" element={<Home />} />
 
             <Route element={<PrivateRoute />}>
-              <Route path='/quizzes' element={<TakeAQuiz />} />
+              <Route path='/quiz' element={<TakeAQuiz />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

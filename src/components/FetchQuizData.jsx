@@ -25,7 +25,7 @@ function FetchQuizData() {
     const token = localStorage.getItem('site');
     const userID = localStorage.getItem('userID');
     const username = localStorage.getItem('username');
-
+    const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
     let correctAnswers = [];
     let userAnswers = [];
     let backgroundColorArray=[]
@@ -44,7 +44,7 @@ function FetchQuizData() {
         setQuestions(data);
         for(let i= 0 ; i < userAnswers.length ; i++ ){
           userAnswers.push('');
-        };
+        };  
       })
     }, []);
     
@@ -93,6 +93,18 @@ function FetchQuizData() {
           "Authorization": `Bearer ${token}`
         },
         body:JSON.stringify(user)
+      })
+
+      const quiz = {userID, date, topic, difficulty, score};
+      console.log(JSON.stringify(quiz));
+      fetch(`http://localhost:8080/quiz/${topic}/${difficulty}`, {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(quiz)
+
       }).then(()=>{
           alert("Score added to profile!")
       }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
