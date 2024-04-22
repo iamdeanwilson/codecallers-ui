@@ -87,7 +87,9 @@ const Invite = () => {
           </div>
           <div>
             <Button 
-                type="submit">Send Invite
+                type="submit"
+                variant="contained">
+                  Send Invite
             </Button> 
           </div>
         </Box>

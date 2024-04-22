@@ -211,7 +211,7 @@ export default function NavBar() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Quizzes', 'Leaderboard', 'Contact', 'Invite', 'About'].map((text, index) => (
+          {['Quiz', 'Leaderboard', 'Contact', 'Invite', 'About'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={event => window.location.href = `/${text}`}>
                 <ListItemText primary={text} />
