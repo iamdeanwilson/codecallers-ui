@@ -31,9 +31,24 @@ body {
   min-height: 100vh;
 }
 
+.c1 {
+  display: inline-block;
+}
+
+.c2 {
+  display: inline-block;
+  margin: 1.5em;
+}
+
+.username {
+  font-size: 2em;
+  line-height: .75;
+  margin: .05em;
+}
+
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  line-height: .75;
 }
 
 button {
