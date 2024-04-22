@@ -5,7 +5,7 @@ function About() {
   
   return (
     <div  style={{  
-      backgroundImage: "url(" + "https://images.unsplash.com/photo-1629905679177-4c4e2623654f?q=80&w=2118&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" + ")",
+      backgroundImage: "url(" + "https://cdn.discordapp.com/attachments/1173418560429756507/1231820191843881020/test11.png?ex=663858f3&is=6625e3f3&hm=5a77ad9c4ea165b51958344b39a9e4b0afb9a10cf388c20d383fe675a276ec7e&" + ")",
       height:'100vh',
       width: '100vw',
       backgroundPosition: 'bottom',
