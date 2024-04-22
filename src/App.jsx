@@ -44,7 +44,7 @@ function App() {
             <Route path="*" element={<Home />} />
 
             <Route element={<PrivateRoute />}>
-              <Route path='/quizzes' element={<TakeAQuiz />} />
+              <Route path='/quiz' element={<TakeAQuiz />} />
             </Route>
 
             <Route element={<PrivateRoute />}>
@@ -53,6 +53,22 @@ function App() {
 
             <Route element={<PrivateRoute />}>
               <Route path='/leaderboard' element={<Leaderboard />} />
+            </Route>
+
+
+
+            <Route element={<PrivateRoute />}>
+              <Route path='/Contact' element={<ContactForm />} />
+            </Route>
+
+            <Route element={<PrivateRoute />}>
+              <Route path='/ThankYou' element={<ThankYou />} />
+            </Route>
+
+
+
+            <Route element={<PrivateRoute />}>
+              <Route path='/invite' element={<Invite />} />
             </Route>
 
             <Route element={<PrivateRoute />}>

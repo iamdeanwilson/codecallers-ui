@@ -23,7 +23,8 @@ function MyAccount() {
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error fetching users:', error));
-  }, []);
+      }, 
+  []);
 
   for ( let i = 0; i < users.length; i++ ){
     if(users[i].username === username){
@@ -33,22 +34,34 @@ function MyAccount() {
 
   if (user.profilePic === '' | user.profilePic === null ){
     profilePic = <p>No profile pic selected! </p>
-  } else { profilePic =<div> <img src={user.profilePic} alt="avatar"/> </div>}
+  } else { profilePic =<div> <img src={user.profilePic} alt="avatar" width="300" height="300"/> </div>}
 
 
   return (
-    <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-      <div>
+    <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '35px', borderRadius: '25px'}}>
+      <div align="center">
+      <h1 className="username"><b>{user.username}'s profile</b></h1><br></br>
         {profilePic}
       </div>
-      {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
+      {username === localStorage.getItem('username') && <Button size="small" variant="contained" onClick={event =>  window.location.href=`/ProfilePicSelector/${username}`} style={{margin : '5px'}}>
         Edit Profile Picture
       </Button >}
-      <h1>{user.username}'s<br></br>Profile</h1>
-      <p>Name: {user.firstName} {user.lastName}</p>
-      <p>Current Score: {user.score}</p>
-      <p>Birthday: {user.birthday}</p>
-      <p>Bio: {user.bio}</p>
+      <br></br><br></br>
+      <div>
+        <p align="left"><b>Name:</b> {user.firstName} {user.lastName}</p>
+        <p align="left"><b>Birthday:</b> {user.birthday}</p>
+        <p align="left"><b>Bio:</b> {user.bio}</p><br></br>
+      </div>
+      <div className="c1">
+        <p align="left"><b>Stats:</b></p>
+        <p align="left">Current Score: {user.score}</p>
+        {/* <p align="left">Most Played Category: N/A </p> */}
+      </div>
+      <div className="c2">
+        {/* <p align="left"> All Time High Score: N/A </p> */}
+        <p align="left">Current Quiz Count: {user.quizCount}</p>
+      </div>
+      <br></br><br></br>
       {username === localStorage.getItem('username') && <Button variant="contained" onClick={event =>  window.location.href=`/editaccount/${username}`} style={{margin : '5px'}}>
         Edit Profile
       </Button >}

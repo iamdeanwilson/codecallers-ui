@@ -17,6 +17,7 @@ function FetchQuizData() {
 
     const [questions, setQuestions] = useState('');
     const [userScore, setUserScore] = useState(null);
+    const [userQuizCount, setQuizCount] = useState(null);
     const [backgroundColors, setBackgroundColors] = useState([]);
     const [userCorrectAnswers, setUserCorrectAnswers] = useState(null);
     const [userTimeTaken, setUserTimeTaken] = useState(null);
@@ -24,7 +25,7 @@ function FetchQuizData() {
     const token = localStorage.getItem('site');
     const userID = localStorage.getItem('userID');
     const username = localStorage.getItem('username');
-
+    const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
     let correctAnswers = [];
     let userAnswers = [];
     let backgroundColorArray=[]
@@ -43,10 +44,10 @@ function FetchQuizData() {
         setQuestions(data);
         for(let i= 0 ; i < userAnswers.length ; i++ ){
           userAnswers.push('');
-        };
+        };  
       })
     }, []);
-  
+    
     const handleSubmit = () => {
       let endTime = performance.now();
       for(let i= 0 ; i < userAnswers.length ; i++ ){
@@ -75,6 +76,7 @@ function FetchQuizData() {
       setUserTimeMultiplier(timeMultiplier);
       setUserTimeTaken(quizTime);
       setUserScore(score);
+      setQuizCount(1);
       window.scrollTo(0, 0);
       event.preventDefault(); 
     }
@@ -82,7 +84,8 @@ function FetchQuizData() {
     const submitScore=(event)=>{
       event.preventDefault()
       let score = userScore;
-      const user={score}
+      let quizCount = userQuizCount;
+      const user={score, quizCount};
       fetch(`http://localhost:8080/user/${userID}/update`, {
         method:"PUT",
         headers:{
@@ -90,6 +93,18 @@ function FetchQuizData() {
           "Authorization": `Bearer ${token}`
         },
         body:JSON.stringify(user)
+      })
+
+      const quiz = {userID, date, topic, difficulty, score};
+      console.log(JSON.stringify(quiz));
+      fetch(`http://localhost:8080/quiz/${topic}/${difficulty}`, {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body:JSON.stringify(quiz)
+
       }).then(()=>{
           alert("Score added to profile!")
       }).then(event =>  window.location.href=`/myaccount/${username}`) // Redirects back to user's profile
