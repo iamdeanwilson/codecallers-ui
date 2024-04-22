@@ -31,21 +31,9 @@ let username;
 
 function App() {
 
-  useEffect(() => {
-    if (document) {
-      const stylesheet = document.createElement("link");
-      stylesheet.rel = "stylesheet";
-      stylesheet.href = "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css";
-
-      document.head.appendChild(stylesheet);
-    }
-  }, []);
-
   return (
 
     <div>
-
-
 
       <Fragment>
         <NavBar />
@@ -67,22 +55,6 @@ function App() {
               <Route path='/leaderboard' element={<Leaderboard />} />
             </Route>
 
-
-
-            <Route element={<PrivateRoute />}>
-              <Route path='/ContactForm' element={<ContactForm />} />
-            </Route>
-
-            <Route element={<PrivateRoute />}>
-              <Route path='/ThankYou' element={<ThankYou />} />
-            </Route>
-
-
-
-            <Route element={<PrivateRoute />}>
-              <Route path='/invite' element={<Invite />} />
-            </Route>
-
             <Route element={<PrivateRoute />}>
               <Route path='/myaccount/:username' element={<MyAccount />} />
             </Route>
@@ -90,10 +62,12 @@ function App() {
 
 
             <Route path="/create" element={<CreateAccount />} />
-
             <Route path="/logout" element={<Logout />} />
-
             <Route path="/login" element={<Login />} />
+            <Route path="/Contact" element={<ContactForm />} />
+            <Route path='/invite' element={<Invite />} />
+            <Route path='/ThankYou' element={<ThankYou />} />
+            <Route path="/about" element={<About />} />
 
             <Route element={<PrivateRoute />}>
               <Route path='/editaccount/:username' element={<EditAccount />} />
@@ -106,7 +80,7 @@ function App() {
 
             <Route path="/ProfilePicSelector/:username" element={<ProfilePicSelector />} />
 
-            <Route path="/about" element={<About />} />
+            
 
           </Routes>
         </AuthProvider>
