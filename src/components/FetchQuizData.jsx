@@ -37,7 +37,7 @@ function FetchQuizData() {
     let startTime = performance.now();
 
     useEffect(() => {
-      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&difficulty=${difficulty}&limit=1&tags=${topic}`)
+      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&difficulty=${difficulty}&limit=10&tags=${topic}`)
       .then(response => {
         return response.json();
       })
