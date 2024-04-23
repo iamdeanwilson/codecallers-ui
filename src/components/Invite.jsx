@@ -41,59 +41,60 @@ const Invite = () => {
 
   return (
     //form that user inputs data into
-    <form onSubmit={handleSubmit} className='emailForm'>
-      <Box
-        sx={{
-          '& > :not(style)': { m: 7, width: '40ch' },
-        }}
-        noValidate
-        autoComplete="off"
-        style={{border: '5px solid rgba(, 0, 0, 0.96)', padding: '50px', borderRadius: '25px'}}>
-          <div>
-            <h2>Invite</h2>
-          </div>
-          <div>
-              <TextField id="yourName" label="Name" variant="outlined"
-                fullWidth
-                type="text"
-                placeholder="Your Name" 
-                value={name}
-                onChange={(e) => setName(e.target.value)} 
-                required
-              />
-          </div>
-          <div>
-              <TextField id="inviteEmail" label="Email" variant="outlined"
-                fullWidth
-                type="text"
-                placeholder="Their Email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} 
-                required
-              />
-          </div>
-          <div>
-              <TextField
-                id="message"
-                label="Message"
-                multiline
-                rows={5}
+    <div  style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px', margin: "5px"}}>
+      <form onSubmit={handleSubmit} className='emailForm'>
+        <Box
+          sx={{
+            '& > :not(style)': { m: 7, width: '40ch' },
+          }}
+          noValidate
+          autoComplete="off">
+            <div>
+              <h2>Invite</h2>
+            </div>
+            <div>
+                <TextField id="yourName" label="Name" variant="outlined"
+                  fullWidth
+                  type="text"
+                  placeholder="Your Name" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)} 
+                  required
+                />
+            </div>
+            <div>
+                <TextField id="inviteEmail" label="Email" variant="outlined"
+                  fullWidth
+                  type="text"
+                  placeholder="Their Email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)} 
+                  required
+                />
+            </div>
+            <div>
+                <TextField
+                  id="message"
+                  label="Message"
+                  multiline
+                  rows={5}
+                  
+                  value={message}
+                  fullWidth
+                  onChange={(e)=>setMessage(e.target.value)} 
+                />
                 
-                value={message}
-                fullWidth
-                onChange={(e)=>setMessage(e.target.value)} 
-              />
-              
-          </div>
-          <div>
-            <Button 
-                type="submit"
-                variant="contained">
-                  Send Invite
-            </Button> 
-          </div>
-        </Box>
-    </form>
+            </div>
+            <div>
+              <Button 
+                  type="submit"
+                  variant="contained">
+                    Send Invite
+              </Button> 
+            </div>
+          </Box>
+      </form>
+    </div>
   )
 }
 
