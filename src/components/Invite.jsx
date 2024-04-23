@@ -41,7 +41,7 @@ const Invite = () => {
 
   return (
     //form that user inputs data into
-    <div  style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '50px', borderRadius: '25px', margin: "5px"}}>
+    <div  style={{border: '5px solid rgba(0, 0, 0, 0.96)', borderRadius: '25px', margin: "5px"}}>
       <form onSubmit={handleSubmit} className='emailForm'>
         <Box
           sx={{
