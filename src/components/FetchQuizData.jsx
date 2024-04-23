@@ -26,6 +26,7 @@ function FetchQuizData() {
     const userID = localStorage.getItem('userID');
     const username = localStorage.getItem('username');
     const date = new Date().toISOString().slice(0, 10).replace('T', ' ');
+    const [scoreFlag, setScoreFlag] = useState(false);
     let correctAnswers = [];
     let userAnswers = [];
     let backgroundColorArray=[]
@@ -36,7 +37,7 @@ function FetchQuizData() {
     let startTime = performance.now();
 
     useEffect(() => {
-      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&difficulty=${difficulty}&limit=10&tags=${topic}`)
+      fetch(`https://quizapi.io/api/v1/questions?apiKey=VsDMbtp8OFRwNTdLxnpFqtTpdkst98Mxw2tiOHHH&difficulty=${difficulty}&limit=1&tags=${topic}`)
       .then(response => {
         return response.json();
       })
@@ -58,7 +59,6 @@ function FetchQuizData() {
         } else backgroundColorArray.push("#e3504b")
       };
       let quizTime = Math.floor((endTime - startTime)/1000);
-
       if (quizTime <= 300 && quizTime > 270){timeMultiplier = 2;} 
       else if (quizTime <= 270 && quizTime > 240){timeMultiplier = 3;} 
       else if (quizTime <= 240 && quizTime > 210){timeMultiplier = 4;} 
@@ -70,7 +70,10 @@ function FetchQuizData() {
       else if (quizTime <= 60 && quizTime > 60){timeMultiplier = 10;} 
       else if (quizTime <= 60 && quizTime > 30){timeMultiplier = 11;} 
       else if (quizTime <= 30){timeMultiplier = 12;}
-      score = (score*timeMultiplier);
+      if(score != 0) {
+        score = (score*timeMultiplier);
+      }
+      setScoreFlag(true);
       setBackgroundColors(backgroundColorArray);
       setUserCorrectAnswers(numberOfCorrectAnswers);
       setUserTimeMultiplier(timeMultiplier);
@@ -96,7 +99,6 @@ function FetchQuizData() {
       })
 
       const quiz = {userID, date, topic, difficulty, score};
-      console.log(JSON.stringify(quiz));
       fetch(`http://localhost:8080/quiz/${topic}/${difficulty}`, {
         method:"POST",
         headers:{
@@ -116,7 +118,7 @@ function FetchQuizData() {
           <Box sx={{ display: 'flex' }}>
             <CircularProgress />
           </Box>}
-        {userScore && <div style={{padding: '10px', borderRadius: '25px', margin : '5px', background:"#1565c0", color: "white"}}>
+        {scoreFlag && <div style={{padding: '10px', borderRadius: '25px', margin : '5px', background:"#1565c0", color: "white"}}>
           <h1>Your Score: {userScore} Points</h1>
           <h3>Number of Correct Answers: {userCorrectAnswers}</h3>
           <h3>Point Value per Question: {questionPointValue} ({difficulty} Difficulty)</h3>
@@ -146,15 +148,14 @@ function FetchQuizData() {
               {question.correct_answers.answer_d_correct === "true" && <script>function() {correctAnswers.push('answer_d')} </script>}
               {question.correct_answers.answer_e_correct === "true" && <script>function() {correctAnswers.push('answer_e')} </script>}
               {question.correct_answers.answer_f_correct === "true" && <script>function() {correctAnswers.push('answer_f')} </script>}
-
-              {userScore && <h3>{"Correct Answer: Answer " + correctAnswers[index].charAt(7).toUpperCase()}</h3>}
+              {scoreFlag && <h3>{"Correct Answer: Answer " + correctAnswers[index].charAt(7).toUpperCase()}</h3>}
 
             </div>
           ))}</div>}
-          {questions && !userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={handleSubmit}>
+          {questions && !scoreFlag && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={handleSubmit}>
             Submit Quiz!
           </Button>}
-          {userScore && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={submitScore}>
+          {scoreFlag && <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="contained" onClick={submitScore}>
             Add Score to Your Profile!
           </Button>}
         </FormControl>
