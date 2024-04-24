@@ -9,6 +9,11 @@ function TakeAQuiz() {
   const javaScriptDifficultyOptions = ["Easy"];
   const htmlDifficultyOptions = ["Easy", "Medium", "Hard"];
   const mySQLDifficultyOptions = ["Easy", "Medium", "Hard"];
+  const bashDifficultyOptions = ["Easy", "Medium", "Hard"];
+  const phpDifficultyOptions = ["Easy", "Medium", "Hard"];
+  const dockerDifficultyOptions = ["Easy", "Medium"];
+  const linuxDifficultyOptions = ["Easy", "Medium", "Hard"];
+  const devopsDifficultyOptions = ["Easy"];
 
   let difficultyOptions = null; 
   
@@ -32,6 +37,16 @@ function TakeAQuiz() {
     difficultyOptions = htmlDifficultyOptions; 
   } else if (topic === "mysql") { 
     difficultyOptions = mySQLDifficultyOptions; 
+  } else if (topic === "bash") { 
+    difficultyOptions = bashDifficultyOptions; 
+  } else if (topic === "php") { 
+    difficultyOptions = phpDifficultyOptions; 
+  } else if (topic === "docker") { 
+    difficultyOptions = dockerDifficultyOptions; 
+  } else if (topic === "linux") { 
+    difficultyOptions = linuxDifficultyOptions; 
+  } else if (topic === "devops") { 
+    difficultyOptions = devopsDifficultyOptions; 
   }
 
   if (difficultyOptions) { 
@@ -82,6 +97,11 @@ function TakeAQuiz() {
                 <MenuItem value={"javaScript"}>JavaScript</MenuItem>
                 <MenuItem value={"html"}>HTML</MenuItem>
                 <MenuItem value={"mysql"}>MySQL</MenuItem>
+                <MenuItem value={"bash"}>Bash</MenuItem>
+                <MenuItem value={"php"}>PHP</MenuItem>
+                <MenuItem value={"docker"}>Docker</MenuItem>
+                <MenuItem value={"linux"}>Linux</MenuItem>
+                <MenuItem value={"devops"}>DevOps</MenuItem>
               </Select>
             </FormControl>
           </Box>
