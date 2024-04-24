@@ -44,6 +44,8 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
+    localStorage.removeItem("username");
+    localStorage.removeItem("profilePic");
     navigate("/");
   };
   

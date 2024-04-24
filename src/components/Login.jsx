@@ -120,8 +120,10 @@ export default function Login(){
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
+
         </div>
         }
+
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
         }
