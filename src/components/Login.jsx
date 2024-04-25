@@ -55,6 +55,8 @@ export default function Login(){
     localStorage.setItem("profilePic", userObject.picture);
     localStorage.setItem("site", response.credential);
     navigate("/");
+
+    const newUser = {}
   }
 
   useEffect(() => {
@@ -108,11 +110,15 @@ export default function Login(){
           />
         </div>}
         
-        {!localStorage.getItem('site') && <div>
+        {!localStorage.getItem('site') && 
+        <div>
           <Button variant="contained" onClick={handleClick}>
             Submit
           </Button>
-        </div>}
+
+        </div>
+        }
+
         { Object.keys(user).length === 0 &&
         <div id= "loginDiv">Sign In As Guest With Google</div>
         }  
