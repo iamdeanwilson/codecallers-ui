@@ -204,7 +204,7 @@ export default function CreateAccount() {
             {dialogHeader === "Uh oh!" && <DialogActions>
               <Button onClick={handleClose} variant="contained">Ok</Button>
             </DialogActions>}
-            {dialogHeader === "Thank you!" && <DialogActions>
+            {dialogHeader === "Thank You!" && <DialogActions>
               <Button onClick={event => window.location.href = '/login'} variant="contained">Go to Login</Button>
             </DialogActions>}
           </Dialog>
