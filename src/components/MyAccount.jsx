@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { useAuth } from './AuthProvider';
 
 
+
 function MyAccount() {
 
   let user = {};
@@ -36,6 +37,8 @@ function MyAccount() {
       .catch(error => console.error('Error fetching quiz data:', error));
     }, 
   []);
+
+
 
   for ( let i = 0; i < users.length; i++ ){
     if(users[i].username === username){
@@ -78,7 +81,7 @@ function MyAccount() {
     profilePic = <p>No profile pic selected! </p>
   } else { profilePic =<div> <img src={user.profilePic} alt="avatar" width="300" height="300"/> </div>}
 
-
+  
   return (
     
     <div style={{border: '5px solid rgba(0, 0, 0, 0.96)', padding: '35px', borderRadius: '25px'}}>
@@ -113,22 +116,8 @@ function MyAccount() {
       </Button>}
     </div>
   );
+ 
 
 }
 
 export default MyAccount;
-
-
-// fetch(`http://localhost:8080/quiz/index`, {
-//   method: 'GET',
-//   headers: {
-//     'Authorization': `Bearer ${token}`
-//   },})
-// .then(response => response.json())
-// .then(data => setTopic(data), setScore(data))
-// .catch(error => console.error('Error fetching quiz data:', error));
-// }, []);
-
-// // users.sort((a, b) => b.score - a.score)
-// console.log(topic);
-// console.log(score);

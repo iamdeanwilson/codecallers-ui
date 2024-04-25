@@ -25,6 +25,7 @@ import './Switch.css'
 import ProfilePicSelector from './components/ProfilePicSelector';
 import ContactForm from './components/ContactForm';
 import ThankYou from './components/ThankYou';
+import Comments from './components/Comments';
 
 let username;
 
@@ -75,6 +76,10 @@ function App() {
               <Route path='/myaccount/:username' element={<MyAccount />} />
             </Route>
 
+            <Route element={<PrivateRoute />}>
+              <Route path='/Comments' element={<Comments />} />
+            </Route>
+
 
 
             <Route path="/create" element={<CreateAccount />} />
@@ -84,6 +89,7 @@ function App() {
             <Route path='/invite' element={<Invite />} />
             <Route path='/ThankYou' element={<ThankYou />} />
             <Route path="/about" element={<About />} />
+            <Route path="/Comments" element={<Comments />} />
 
             <Route element={<PrivateRoute />}>
               <Route path='/editaccount/:username' element={<EditAccount />} />
