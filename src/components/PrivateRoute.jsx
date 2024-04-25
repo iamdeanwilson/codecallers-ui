@@ -4,7 +4,7 @@ import { useAuth } from "./AuthProvider";
 
 const PrivateRoute = () => {
   const user = useAuth();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("site");
   if (!user.token && token === null) {
     window.alert('Please Login to access this page');
     return <Navigate to="/login" />;

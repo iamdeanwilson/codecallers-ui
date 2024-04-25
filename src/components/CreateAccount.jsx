@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Password } from '@mui/icons-material';
 
 
+
 export default function CreateAccount() {
   const[firstName, setFirstName]=React.useState('')
   const[lastName, setLastName]=React.useState('')
@@ -85,7 +86,7 @@ export default function CreateAccount() {
         setDialogBody(data.message);
       } else {
         setOpen(true);
-        setDialogHeader("Thank you!");
+        setDialogHeader("Thank You!");
         setDialogBody(data.message);
       } 
      })
