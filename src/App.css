@@ -45,6 +45,8 @@ tr:nth-child(even) {
   background-color: #42a5f5;
 }
 
+
+
 .float-child-left {
   width: 450px;
   float: left;
@@ -55,4 +57,7 @@ tr:nth-child(even) {
   width: auto;
   float: left;
   padding: 20px;
+}
+.messageBoard {
+    background-color: rgb(231, 231, 238);
 }  
