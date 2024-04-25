@@ -17,3 +17,5 @@ Utilizing HeroTofu API's and services, visitors are able to visit the "Contact" 
 Users can use the "Invite" page to invite their friends to use the site. The "Invite" component utilizes EmailJS library and backend services that allow a user to enter the email address of their intended recipient and a brief message. Upon form submission, EmailJS will send the email to the recipient, inviting them to visit our website.
 
 The Nav Bar also features a "Theme" switch, which allows visitors to toggle between "light" and "dark" mode, for a better user experience. 
+
+Additionally there is a platform wide comment board allowing users to send posts in order to communicate with each other, this works by pulling data from a comments SQL table as well as posting data once the user submits their comment. The page then refreshes displaying the new data after submission.
