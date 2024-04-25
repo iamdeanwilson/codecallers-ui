@@ -11,7 +11,7 @@ export default function Comments() {
     const userID = localStorage.getItem('userID');
     const username = localStorage.getItem('username');
     const[comment, setComment]=React.useState('')
-    const date = new Date().toISOString().slice(0,10).replace('T', ' ');
+    const date = new Date();
 
     useEffect(() => {
         fetch(`http://localhost:8080/comments/index`, {
