@@ -5,7 +5,7 @@ function Home() {
 
   return (
     <div  style={{  
-      backgroundImage: "url(" + "https://cdn.discordapp.com/attachments/1173418560429756507/1231820191554338919/test22.png?ex=663858f3&is=6625e3f3&hm=78a13d1d1395552a85dea60dd35f2d008548375278507566829106e8769b59c5&" + ")",
+      backgroundImage: "url(" + "https://images.unsplash.com/photo-1493934558415-9d19f0b2b4d2?q=80&w=2054&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" + ")",
       height:'100vh',
       width: '100vw',
       backgroundPosition: 'center',
